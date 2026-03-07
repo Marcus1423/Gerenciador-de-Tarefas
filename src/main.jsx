@@ -4,13 +4,16 @@ import './index.css'
 import App from './App.jsx'
 import { ProjectProvider } from './contexts/ProjectContext.jsx'
 import { TaskProvider } from './contexts/TaskContext.jsx'
+import { ThemeProvider } from './contexts/ThemeContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <ThemeProvider>
     <ProjectProvider>
       <TaskProvider>
         <App />
       </TaskProvider>
     </ProjectProvider>
+    </ThemeProvider>
   </StrictMode>,
 )

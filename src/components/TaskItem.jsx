@@ -15,7 +15,16 @@ function TaskItem({ task }) {
           textDecoration: task.completed ? "line-through" : "none"
         }}
       >
-        {task.title}
+        <div className="flex flex-col">
+          <div className="text-lg">
+             {task.title}
+          </div>
+          <div className="text-sm max-w-2xs">
+            {task.description}
+          </div>
+      
+        </div>
+        
       </span>
 
       <button onClick={() => toggleTask(task.id)} className="bg-green-800/10 text-green-600 hover:bg-green-500/20 px-3 py-1 rounded-lg transition">
