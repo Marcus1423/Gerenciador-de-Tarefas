@@ -1,7 +1,7 @@
-import { useContext } from "react";
+import { useContext, memo } from "react";
 import { TaskContext } from "../contexts/TaskContext";
 
-function TaskItem({ task }) {
+const TaskItem = memo(function TaskItem({ task }) {
   const { toggleTask, removeTask } = useContext(TaskContext);
 
   return (
@@ -36,6 +36,6 @@ function TaskItem({ task }) {
 
     </li>
   );
-}
+});
 
 export default TaskItem;

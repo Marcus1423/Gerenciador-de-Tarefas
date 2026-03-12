@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useCallback, useMemo } from "react";
 
 export const TaskContext = createContext();
 
@@ -13,7 +13,7 @@ useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
-  function addTask(data, projectId = null) {
+  const addTask = useCallback((data, projectId = null) => {
 
     setTasks(prev => [
       ...prev,
@@ -26,9 +26,9 @@ useEffect(() => {
       projectId
        }
     ]);
-  }
+  }, []);
 
-  function toggleTask(id) {
+  const toggleTask = useCallback((id) => {
     setTasks(prev =>
       prev.map(task =>
         task.id === id
@@ -36,14 +36,21 @@ useEffect(() => {
           : task
       )
     );
-  }
+  }, []);
 
-  function removeTask(id) {
+  const removeTask = useCallback((id) => {
         setTasks(prev => prev.filter(p => p.id !== id));
-  }
+  }, []);
+
+  const value = useMemo(() => ({
+  tasks,
+  addTask,
+  removeTask,
+  toggleTask
+}), [tasks, addTask, removeTask, toggleTask]);
 
   return (
-    <TaskContext.Provider value={{tasks, addTask, removeTask, toggleTask}}>
+    <TaskContext.Provider value={value}>
         { children }
     </TaskContext.Provider>
   )
